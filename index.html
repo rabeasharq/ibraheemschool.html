@@ -378,6 +378,21 @@
             margin: 5px 0;
         }
         
+        .welcome-message {
+            background: linear-gradient(90deg, #57cc99 0%, #38b000 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: center;
+            animation: fadeIn 1s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
         @media (max-width: 768px) {
             .examples {
                 grid-template-columns: 1fr;
@@ -454,6 +469,11 @@
             </div>
             
             <div class="tab-content" id="explanation-tab">
+                <div id="welcomeMessage" class="welcome-message" style="display: none;">
+                    <h2>مرحباً <span id="welcomeStudentName"></span>!</h2>
+                    <p>لنبدأ رحلة التعلم مع مصادر الأفعال الرباعية. استمع جيداً للشرح ثم انتقل إلى التمارين.</p>
+                </div>
+                
                 <div class="definition">
                     <h2>تعريف المصدر</h2>
                     <p>المَصْدَرُ: اسْمُ يَدُلُّ عَلَى حَدَثٍ مُجَرَّدٍ مِنَ الزَّمَنِ، وَهُوَ أَصْلُ لِجَمِيعِ المُشْتَقَاتِ.</p>
@@ -489,6 +509,33 @@
                                 <span>قَرَأَ</span>
                                 <span>→</span>
                                 <span>قِرَاءَةً</span>
+                            </div>
+                            <p>مصدر ثلاثي غير قياسي</p>
+                        </div>
+                        
+                        <div class="example-card">
+                            <div class="example-header">
+                                <span>كَبَتَ</span>
+                                <span>→</span>
+                                <span>كَبْتًا</span>
+                            </div>
+                            <p>مصدر ثلاثي غير قياسي</p>
+                        </div>
+                        
+                        <div class="example-card">
+                            <div class="example-header">
+                                <span>خَرَجَ</span>
+                                <span>→</span>
+                                <span>خُرُوجًا</span>
+                            </div>
+                            <p>مصدر ثلاثي غير قياسي</p>
+                        </div>
+                        
+                        <div class="example-card">
+                            <div class="example-header">
+                                <span>سَئِمَ</span>
+                                <span>→</span>
+                                <span>سَأَمًا</span>
                             </div>
                             <p>مصدر ثلاثي غير قياسي</p>
                         </div>
@@ -563,6 +610,15 @@
                                 <span>شَارَكَ</span>
                                 <span>→</span>
                                 <span>مُشَارَكَةً</span>
+                            </div>
+                            <p>وزن مفاعلة</p>
+                        </div>
+                        
+                        <div class="example-card">
+                            <div class="example-header">
+                                <span>سَافَرَ</span>
+                                <span>→</span>
+                                <span>مُسَافَرَةً</span>
                             </div>
                             <p>وزن مفاعلة</p>
                         </div>
@@ -758,10 +814,10 @@
                             <div class="choice" onclick="selectMCChoice(this, 'q4a2')">سُفْرَةٌ</div>
                             <div class="choice" onclick="selectMCChoice(this, 'q4a2')">مُسَافَرَةٌ</div>
                             
-                            <p>٣- مصدر الفعل (هَزَّزَ) هو:</p>
-                            <div class="choice" onclick="selectMCChoice(this, 'q4a3')">هَزٌّ</div>
-                            <div class="choice" onclick="selectMCChoice(this, 'q4a3')">تَهْزِيزٌ</div>
-                            <div class="choice" onclick="selectMCChoice(this, 'q4a3')">هَزَّازَةٌ</div>
+                            <p>٣- مصدر الفعل (زَلْزَلَ) هو:</p>
+                            <div class="choice" onclick="selectMCChoice(this, 'q4a3')">زَلْزَلَةٌ</div>
+                            <div class="choice" onclick="selectMCChoice(this, 'q4a3')">تَزْلِيلٌ</div>
+                            <div class="choice" onclick="selectMCChoice(this, 'q4a3')">زِلْزَالٌ</div>
                         </div>
                         
                         <button class="btn btn-check" onclick="checkExercise4()">تحقق من الإجابات</button>
@@ -855,6 +911,7 @@
             if (savedStudent) {
                 currentStudent = JSON.parse(savedStudent);
                 displayStudentInfo();
+                showWelcomeMessage();
                 startTimer();
             }
             
@@ -891,8 +948,22 @@
             
             localStorage.setItem('currentStudent', JSON.stringify(currentStudent));
             displayStudentInfo();
+            showWelcomeMessage();
             startTimer();
             switchTab('explanation');
+        }
+        
+        // عرض رسالة ترحيب
+        function showWelcomeMessage() {
+            if (!currentStudent) return;
+            
+            document.getElementById('welcomeStudentName').textContent = currentStudent.name;
+            document.getElementById('welcomeMessage').style.display = 'block';
+            
+            // إخفاء الرسالة بعد 5 ثوانٍ
+            setTimeout(() => {
+                document.getElementById('welcomeMessage').style.display = 'none';
+            }, 5000);
         }
         
         // عرض معلومات الطالب
@@ -1107,7 +1178,7 @@
             alert('تم إعادة تعيين الاختبار بنجاح! يمكنك البدء من جديد.');
         }
         
-        // بقية الدوال الخاصة بالتمارين (لم تتغير)
+        // بقية الدوال الخاصة بالتمارين
         function selectChoice(element, correctAnswer) {
             element.parentElement.querySelectorAll('.choice').forEach(choice => {
                 choice.classList.remove('selected');
@@ -1152,7 +1223,7 @@
         function checkExercise1() {
             const answers = [
                 { source: 'إطعاماً', type: 'رباعي', weight: 'إفعال' },
-                { source: 'سفراً', type: 'ثلاثي', weight: 'غير قياسي' },
+                { source: 'مسافرة', type: 'رباعي', weight: 'مفاعلة' },
                 { source: 'توحيداً', type: 'رباعي', weight: 'تفعيل' },
                 { source: 'مقابلة', type: 'رباعي', weight: 'مفاعلة' },
                 { source: 'دحرجة', type: 'رباعي', weight: 'فعللة' }
@@ -1248,8 +1319,8 @@
         function checkExercise4() {
             const answers = {
                 'q4a1': 'إِعْطَاءٌ',
-                'q4a2': 'سَفْرٌ',
-                'q4a3': 'هَزَّازَةٌ'
+                'q4a2': 'مُسَافَرَةٌ',
+                'q4a3': 'زِلْزَالٌ'
             };
             
             let correctCount = 0;
@@ -1284,7 +1355,7 @@
                 case 1:
                     answers = [
                         "١- أَطْعَمَ → إطعاماً (رباعي - إفعال)",
-                        "٢- سَافَرَ → سفراً (ثلاثي - غير قياسي)",
+                        "٢- سَافَرَ → مسافرة (رباعي - مفاعلة)",
                         "٣- وَحَّدَ → توحيداً (رباعي - تفعيل)",
                         "٤- قَابَلَ → مقابلة (رباعي - مفاعلة)",
                         "٥- دَحْرَجَ → دحرجة (رباعي - فعللة)"
