@@ -1,0 +1,1328 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ورقة عمل مصدر الأفعال الرباعية - نظام التقييم</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(90deg, #1a5f7a 0%, #159895 100%);
+            color: white;
+            padding: 25px;
+            text-align: center;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            position: relative;
+        }
+        
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+        
+        h2 {
+            color: #1a5f7a;
+            margin: 25px 0 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px dashed #57cc99;
+        }
+        
+        h3 {
+            color: #159895;
+            margin: 20px 0 12px;
+        }
+        
+        .school-info {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-top: 15px;
+            font-size: 1.1rem;
+        }
+        
+        .content {
+            padding: 0 20px 20px;
+        }
+        
+        .definition {
+            background-color: #e8f4fc;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-right: 5px solid #57cc99;
+        }
+        
+        .verb-type {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        
+        .examples {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .example-card {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+            border-top: 4px solid #57cc99;
+            transition: transform 0.3s;
+        }
+        
+        .example-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .example-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #1a5f7a;
+        }
+        
+        .exercises {
+            background-color: #f0f7ff;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 25px 0;
+        }
+        
+        .exercise {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed #ccc;
+        }
+        
+        .exercise:last-child {
+            border-bottom: none;
+        }
+        
+        .question {
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        
+        .answer-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin: 5px 0;
+            font-size: 1rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: linear-gradient(90deg, #1a5f7a 0%, #159895 100%);
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: all 0.3s;
+            margin: 10px 5px;
+        }
+        
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .btn-check {
+            background: linear-gradient(90deg, #57cc99 0%, #38b000 100%);
+        }
+        
+        .btn-show-answers {
+            background: linear-gradient(90deg, #ff9a3c 0%, #ff6f3c 100%);
+        }
+        
+        .btn-teacher {
+            background: linear-gradient(90deg, #9d4edd 0%, #5a189a 100%);
+        }
+        
+        .result {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            display: none;
+        }
+        
+        .correct {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .incorrect {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            color: #666;
+        }
+        
+        .teacher-signature {
+            font-weight: bold;
+            color: #1a5f7a;
+            margin-top: 10px;
+        }
+        
+        .progress-container {
+            margin: 20px 0;
+            background-color: #f0f0f0;
+            border-radius: 10px;
+            height: 20px;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #57cc99 0%, #38b000 100%);
+            width: 0%;
+            transition: width 0.5s ease-in-out;
+        }
+        
+        .multiple-choice {
+            margin: 15px 0;
+        }
+        
+        .choice {
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .choice:hover {
+            background-color: #f0f7ff;
+        }
+        
+        .choice.selected {
+            background-color: #e8f4fc;
+            border-color: #57cc99;
+        }
+        
+        .choice.correct-answer {
+            background-color: #d4edda;
+            border-color: #28a745;
+        }
+        
+        .choice.incorrect-answer {
+            background-color: #f8d7da;
+            border-color: #dc3545;
+        }
+        
+        .explanation {
+            background-color: #fff9e6;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-right: 4px solid #ffc107;
+        }
+        
+        .summary {
+            background-color: #e8f4fc;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .summary-score {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #1a5f7a;
+            margin: 10px 0;
+        }
+        
+        .nav-tabs {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .nav-tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+        
+        .nav-tab.active {
+            border-bottom: 3px solid #57cc99;
+            color: #1a5f7a;
+            font-weight: bold;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .student-form {
+            background-color: #f0f7ff;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #1a5f7a;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        
+        .results-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        .results-table th, .results-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: center;
+        }
+        
+        .results-table th {
+            background-color: #1a5f7a;
+            color: white;
+        }
+        
+        .results-table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        
+        .results-table tr:hover {
+            background-color: #e8f4fc;
+        }
+        
+        .timer {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #1a5f7a;
+            margin: 10px 0;
+            text-align: center;
+        }
+        
+        .student-info {
+            background-color: #e8f4fc;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        
+        .student-info div {
+            margin: 5px 0;
+        }
+        
+        @media (max-width: 768px) {
+            .examples {
+                grid-template-columns: 1fr;
+            }
+            
+            .school-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .nav-tabs {
+                flex-wrap: wrap;
+            }
+            
+            .student-info {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>ورقة عمل مصدر الأفعال الرباعية - نظام التقييم</h1>
+            <div class="school-info">
+                <div>مدرسة إشراق اليمن</div>
+                <div>الصف التاسع - قواعد اللغة العربية</div>
+                <div>المعلم: إبراهيم متاش</div>
+            </div>
+            <div class="progress-container">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+            <div class="timer" id="timer">الوقت المستغرق: 00:00</div>
+        </header>
+        
+        <div class="nav-tabs">
+            <div class="nav-tab active" onclick="switchTab('student')">تسجيل الطالب</div>
+            <div class="nav-tab" onclick="switchTab('explanation')">شرح الدرس</div>
+            <div class="nav-tab" onclick="switchTab('examples')">أمثلة إضافية</div>
+            <div class="nav-tab" onclick="switchTab('exercises')">التمارين</div>
+            <div class="nav-tab" onclick="switchTab('summary')">النتيجة</div>
+            <div class="nav-tab" onclick="switchTab('teacher')">لوحة المعلم</div>
+        </div>
+        
+        <div class="content">
+            <div class="tab-content active" id="student-tab">
+                <div class="student-form">
+                    <h2>تسجيل بيانات الطالب</h2>
+                    <div class="form-group">
+                        <label for="studentName">اسم الطالب</label>
+                        <input type="text" id="studentName" placeholder="أدخل اسمك الكامل">
+                    </div>
+                    <div class="form-group">
+                        <label for="studentClass">الصف</label>
+                        <input type="text" id="studentClass" placeholder="أدخل صفك">
+                    </div>
+                    <div class="form-group">
+                        <label for="studentId">رقم الطالب</label>
+                        <input type="text" id="studentId" placeholder="أدخل رقمك">
+                    </div>
+                    <button class="btn" onclick="registerStudent()">بدء الاختبار</button>
+                </div>
+                
+                <div class="student-info" id="currentStudentInfo" style="display: none;">
+                    <div>الطالب: <span id="displayStudentName"></span></div>
+                    <div>الصف: <span id="displayStudentClass"></span></div>
+                    <div>رقم الطالب: <span id="displayStudentId"></span></div>
+                    <div>وقت البدء: <span id="startTime"></span></div>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="explanation-tab">
+                <div class="definition">
+                    <h2>تعريف المصدر</h2>
+                    <p>المَصْدَرُ: اسْمُ يَدُلُّ عَلَى حَدَثٍ مُجَرَّدٍ مِنَ الزَّمَنِ، وَهُوَ أَصْلُ لِجَمِيعِ المُشْتَقَاتِ.</p>
+                </div>
+                
+                <h2>أنواع المصادر حسب الفعل</h2>
+                
+                <div class="verb-type">
+                    <h3>١- مصادر الأفعال الثلاثية</h3>
+                    <p>مَصَادِرُ الأَفْعَالِ الثَّلَاثِيَّةِ لَا تَلْتَزِمُ بِأَوْزَانٍ مُعَيَّنَةٍ وَتَتَحَقَّقُ مَعْرِفَتُنَا بِهَا عَنْ طَرِيقِ السَّمَاعِ، أَوِ الكَشْفِ عَنْهَا فِي المَعَاجِمِ اللُّغَوِيَّةِ.</p>
+                    
+                    <div class="examples">
+                        <div class="example-card">
+                            <div class="example-header">
+                                <span>كَتَبَ</span>
+                                <span>→</span>
+                                <span>كِتَابَةً</span>
+                            </div>
+                            <p>مصدر ثلاثي غير قياسي</p>
+                        </div>
+                        
+                        <div class="example-card">
+                            <div class="example-header">
+                                <span>فَهِمَ</span>
+                                <span>→</span>
+                                <span>فَهْمًا</span>
+                            </div>
+                            <p>مصدر ثلاثي غير قياسي</p>
+                        </div>
+                        
+                        <div class="example-card">
+                            <div class="example-header">
+                                <span>قَرَأَ</span>
+                                <span>→</span>
+                                <span>قِرَاءَةً</span>
+                            </div>
+                            <p>مصدر ثلاثي غير قياسي</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="verb-type">
+                    <h3>٢- مصادر الأفعال الرباعية</h3>
+                    <p>مَصَادِرُ الأَفْعَالِ الرُّبَاعِيَّةِ أَوْزَانُهَا قِيَاسِيَّةٌ وَتَخْتَلِفُ بِاخْتِلَافِ صِيَغِ الْأَفْعَالِ</p>
+                    
+                    <h3>أ- فعل على وزن (أَفْعَلَ)</h3>
+                    <p>يَأْتِي مَصْدَرُهُ عَلَى وَزْنِ (إِفْعَالٍ)، إِذَا كَانَ صَحِيحَ الوَسَطِ، أَمَّا إِذَا كَانَ مُعْتَلَّ الوَسَطِ، فَيَكُونُ عَلَى وَزْنِ (إِفْعَلَةٍ).</p>
+                    
+                    <div class="examples">
+                        <div class="example-card">
+                            <div class="example-header">
+                                <span>أَكْرَمَ</span>
+                                <span>→</span>
+                                <span>إِكْرَامًا</span>
+                            </div>
+                            <p>صحيح الوسط - وزن إفعال</p>
+                        </div>
+                        
+                        <div class="example-card">
+                            <div class="example-header">
+                                <span>أَعَانَ</span>
+                                <span>→</span>
+                                <span>إِعَانَةً</span>
+                            </div>
+                            <p>معتل الوسط - وزن إفعلة</p>
+                        </div>
+                    </div>
+                    
+                    <h3>ب- فعل على وزن (فَعَّلَ)</h3>
+                    <p>يَأْتِي مَصْدَرُهُ عَلَى وَزْنِ (تَفْعِيلٍ) إِذَا كَانَ صَحِيحَ الْآخِرِ، وَإِذَا كَانَ مُعْتَلَّ الْآخِرِ، فَتَكُونُ عَلَى وَزْنِ (تَفْعِلَةٍ).</p>
+                    
+                    <div class="examples">
+                        <div class="example-card">
+                            <div class="example-header">
+                                <span>دَرَّبَ</span>
+                                <span>→</span>
+                                <span>تَدْرِيبًا</span>
+                            </div>
+                            <p>صحيح الآخر - وزن تفعيل</p>
+                        </div>
+                        
+                        <div class="example-card">
+                            <div class="example-header">
+                                <span>هَدَّى</span>
+                                <span>→</span>
+                                <span>تَهْدِيَةً</span>
+                            </div>
+                            <p>معتل الآخر - وزن تفعلة</p>
+                        </div>
+                    </div>
+                    
+                    <h3>ج- فعل على وزن (فَاعَلَ)</h3>
+                    <p>يَأْتِي مَصْدَرُهُ عَلَى وَزْنِ (فِعَالٍ وَمُفَاعَلَةٍ).</p>
+                    
+                    <div class="examples">
+                        <div class="example-card">
+                            <div class="example-header">
+                                <span>قَاتَلَ</span>
+                                <span>→</span>
+                                <span>قِتَالًا</span>
+                            </div>
+                            <p>وزن فعال</p>
+                        </div>
+                        
+                        <div class="example-card">
+                            <div class="example-header">
+                                <span>شَارَكَ</span>
+                                <span>→</span>
+                                <span>مُشَارَكَةً</span>
+                            </div>
+                            <p>وزن مفاعلة</p>
+                        </div>
+                    </div>
+                    
+                    <h3>د- فعل على وزن (فَعْلَلَ)</h3>
+                    <p>يَأْتِي مَصْدَرُهُ عَلَى وَزْنِ (فَعْلَلَةٍ)، وَإِذَا كَانَ مُضَعَّفًا رُبَاعِيًّا فَيَجُوزُ أَنْ يَأْتِيَ مَصْدَرُهُ عَلَى وَزْنِ (فَعْلَلَةٍ) أَوْ (فِعْلَالٍ).</p>
+                    
+                    <div class="examples">
+                        <div class="example-card">
+                            <div class="example-header">
+                                <span>زَلْزَلَ</span>
+                                <span>→</span>
+                                <span>زَلْزَلَةً</span>
+                            </div>
+                            <p>وزن فعللة</p>
+                        </div>
+                        
+                        <div class="example-card">
+                            <div class="example-header">
+                                <span>زَلْزَلَ</span>
+                                <span>→</span>
+                                <span>زِلْزَالًا</span>
+                            </div>
+                            <p>وزن فعال (مضعف رباعي)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="examples-tab">
+                <h2>أمثلة إضافية على مصادر الأفعال الرباعية</h2>
+                
+                <div class="explanation">
+                    <h3>ملاحظة هامة:</h3>
+                    <p>لضمان صحة المصدر الرباعي، يجب مراعاة وزن الفعل الأصلي ونوع الحروف (صحيحة أو معتلة) لتحديد الوزن المناسب للمصدر.</p>
+                </div>
+                
+                <div class="examples">
+                    <div class="example-card">
+                        <div class="example-header">
+                            <span>أَصْدَقَ</span>
+                            <span>→</span>
+                            <span>إِصْدَاقًا</span>
+                        </div>
+                        <p>صحيح الوسط - وزن إفعال</p>
+                    </div>
+                    
+                    <div class="example-card">
+                        <div class="example-header">
+                            <span>أَحْسَنَ</span>
+                            <span>→</span>
+                            <span>إِحْسَانًا</span>
+                        </div>
+                        <p>صحيح الوسط - وزن إفعال</p>
+                    </div>
+                    
+                    <div class="example-card">
+                        <div class="example-header">
+                            <span>أَعْطَى</span>
+                            <span>→</span>
+                            <span>إِعْطَاءً</span>
+                        </div>
+                        <p>معتل الوسط - وزن إفعال (استثناء)</p>
+                    </div>
+                    
+                    <div class="example-card">
+                        <div class="example-header">
+                            <span>نَظَّمَ</span>
+                            <span>→</span>
+                            <span>تَنْظِيمًا</span>
+                        </div>
+                        <p>صحيح الآخر - وزن تفعيل</p>
+                    </div>
+                    
+                    <div class="example-card">
+                        <div class="example-header">
+                            <span>قَوَّى</span>
+                            <span>→</span>
+                            <span>تَقْوِيَةً</span>
+                        </div>
+                        <p>معتل الآخر - وزن تفعلة</p>
+                    </div>
+                    
+                    <div class="example-card">
+                        <div class="example-header">
+                            <span>حَاوَرَ</span>
+                            <span>→</span>
+                            <span>حِوَارًا</span>
+                        </div>
+                        <p>وزن فعال</p>
+                    </div>
+                    
+                    <div class="example-card">
+                        <div class="example-header">
+                            <span>نَاقَشَ</span>
+                            <span>→</span>
+                            <span>مُنَاقَشَةً</span>
+                        </div>
+                        <p>وزن مفاعلة</p>
+                    </div>
+                    
+                    <div class="example-card">
+                        <div class="example-header">
+                            <span>دَوْرَنَ</span>
+                            <span>→</span>
+                            <span>دَوْرَنَةً</span>
+                        </div>
+                        <p>وزن فعللة</p>
+                    </div>
+                </div>
+                
+                <div class="explanation">
+                    <h3>تمرين سريع:</h3>
+                    <p>حاول تحديد المصدر الصحيح للفعل التالي: (أَنْعَمَ)</p>
+                    <div class="multiple-choice">
+                        <div class="choice" onclick="selectChoice(this, 'إِنْعَامٌ')">إِنْعَامٌ</div>
+                        <div class="choice" onclick="selectChoice(this, 'إِنْعَامَةٌ')">إِنْعَامَةٌ</div>
+                        <div class="choice" onclick="selectChoice(this, 'إِنْعِمَةٌ')">إِنْعِمَةٌ</div>
+                    </div>
+                    <button class="btn btn-check" onclick="checkQuickExercise()">تحقق من الإجابة</button>
+                    <div class="result" id="quickResult"></div>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="exercises-tab">
+                <div class="exercises">
+                    <h2>التمارين التطبيقية</h2>
+                    
+                    <div class="exercise">
+                        <div class="question">السؤال الأول: استخرج المصدر من الأفعال التالية مع تحديد نوع الفعل (ثلاثي أو رباعي) ووزن المصدر:</div>
+                        
+                        <div class="input-group">
+                            <p>١- أَطْعَمَ → <input type="text" class="answer-input" id="q1a1" placeholder="اكتب المصدر هنا"> (نوع الفعل: <input type="text" class="answer-input" id="q1t1" placeholder="ثلاثي/رباعي"> - وزن المصدر: <input type="text" class="answer-input" id="q1w1" placeholder="وزن المصدر">)</p>
+                            
+                            <p>٢- سَافَرَ → <input type="text" class="answer-input" id="q1a2" placeholder="اكتب المصدر هنا"> (نوع الفعل: <input type="text" class="answer-input" id="q1t2" placeholder="ثلاثي/رباعي"> - وزن المصدر: <input type="text" class="answer-input" id="q1w2" placeholder="وزن المصدر">)</p>
+                            
+                            <p>٣- وَحَّدَ → <input type="text" class="answer-input" id="q1a3" placeholder="اكتب المصدر هنا"> (نوع الفعل: <input type="text" class="answer-input" id="q1t3" placeholder="ثلاثي/رباعي"> - وزن المصدر: <input type="text" class="answer-input" id="q1w3" placeholder="وزن المصدر">)</p>
+                            
+                            <p>٤- قَابَلَ → <input type="text" class="answer-input" id="q1a4" placeholder="اكتب المصدر هنا"> (نوع الفعل: <input type="text" class="answer-input" id="q1t4" placeholder="ثلاثي/رباعي"> - وزن المصدر: <input type="text" class="answer-input" id="q1w4" placeholder="وزن المصدر">)</p>
+                            
+                            <p>٥- دَحْرَجَ → <input type="text" class="answer-input" id="q1a5" placeholder="اكتب المصدر هنا"> (نوع الفعل: <input type="text" class="answer-input" id="q1t5" placeholder="ثلاثي/رباعي"> - وزن المصدر: <input type="text" class="answer-input" id="q1w5" placeholder="وزن المصدر">)</p>
+                        </div>
+                        
+                        <button class="btn btn-check" onclick="checkExercise1()">تحقق من الإجابات</button>
+                        <button class="btn btn-show-answers" onclick="showAnswers(1)">عرض الإجابات النموذجية</button>
+                        <div class="result" id="result1"></div>
+                    </div>
+                    
+                    <div class="exercise">
+                        <div class="question">السؤال الثاني: ضع مصدرًا مناسبًا لكل جملة مما يلي:</div>
+                        
+                        <div class="input-group">
+                            <p>١- يهدف المشروع إلى (<input type="text" class="answer-input" id="q2a1" placeholder="اكتب المصدر هنا">) البيئة. (حَفِظَ)</p>
+                            
+                            <p>٢- يسعى المعلم إلى (<input type="text" class="answer-input" id="q2a2" placeholder="اكتب المصدر هنا">) طلابه. (أَنجَحَ)</p>
+                            
+                            <p>٣- نتمنى (<input type="text" class="answer-input" id="q2a3" placeholder="اكتب المصدر هنا">) الأمة الإسلامية. (وَحدَ)</p>
+                        </div>
+                        
+                        <button class="btn btn-check" onclick="checkExercise2()">تحقق من الإجابات</button>
+                        <button class="btn btn-show-answers" onclick="showAnswers(2)">عرض الإجابات النموذجية</button>
+                        <div class="result" id="result2"></div>
+                    </div>
+                    
+                    <div class="exercise">
+                        <div class="question">السؤال الثالث: صوّب الخطأ في المصادر التالية:</div>
+                        
+                        <div class="input-group">
+                            <p>١- إِحْسَانَةٌ ← <input type="text" class="answer-input" id="q3a1" placeholder="اكتب التصحيح هنا"></p>
+                            
+                            <p>٢- تَسْوِيدٌ ← <input type="text" class="answer-input" id="q3a2" placeholder="اكتب التصحيح هنا"></p>
+                            
+                            <p>٣- مُقَاوَمَةٌ (لِقَاوَمَ) ← <input type="text" class="answer-input" id="q3a3" placeholder="اكتب التصحيح هنا"></p>
+                        </div>
+                        
+                        <button class="btn btn-check" onclick="checkExercise3()">تحقق من الإجابات</button>
+                        <button class="btn btn-show-answers" onclick="showAnswers(3)">عرض الإجابات النموذجية</button>
+                        <div class="result" id="result3"></div>
+                    </div>
+                    
+                    <div class="exercise">
+                        <div class="question">السؤال الرابع: اختر الإجابة الصحيحة من بين الخيارات:</div>
+                        
+                        <div class="multiple-choice">
+                            <p>١- مصدر الفعل (أَعْطَى) هو:</p>
+                            <div class="choice" onclick="selectMCChoice(this, 'q4a1')">إِعْطَاءٌ</div>
+                            <div class="choice" onclick="selectMCChoice(this, 'q4a1')">إِعْطَاةٌ</div>
+                            <div class="choice" onclick="selectMCChoice(this, 'q4a1')">إِعْطِيَةٌ</div>
+                            
+                            <p>٢- مصدر الفعل (سَافَرَ) هو:</p>
+                            <div class="choice" onclick="selectMCChoice(this, 'q4a2')">سَفْرٌ</div>
+                            <div class="choice" onclick="selectMCChoice(this, 'q4a2')">سُفْرَةٌ</div>
+                            <div class="choice" onclick="selectMCChoice(this, 'q4a2')">مُسَافَرَةٌ</div>
+                            
+                            <p>٣- مصدر الفعل (هَزَّزَ) هو:</p>
+                            <div class="choice" onclick="selectMCChoice(this, 'q4a3')">هَزٌّ</div>
+                            <div class="choice" onclick="selectMCChoice(this, 'q4a3')">تَهْزِيزٌ</div>
+                            <div class="choice" onclick="selectMCChoice(this, 'q4a3')">هَزَّازَةٌ</div>
+                        </div>
+                        
+                        <button class="btn btn-check" onclick="checkExercise4()">تحقق من الإجابات</button>
+                        <div class="result" id="result4"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="summary-tab">
+                <div class="summary">
+                    <h2>ملخص أدائك</h2>
+                    <div class="summary-score" id="totalScore">0%</div>
+                    <p>عدد التمارين المكتملة: <span id="completedExercises">0</span> من 4</p>
+                    <p>عدد الإجابات الصحيحة: <span id="correctAnswers">0</span> من 14</p>
+                    <div class="progress-container" style="height: 30px; margin: 20px 0;">
+                        <div class="progress-bar" id="summaryProgressBar"></div>
+                    </div>
+                    <button class="btn" onclick="saveResults()">حفظ النتائج</button>
+                    <button class="btn" onclick="resetProgress()">إعادة المحاولة</button>
+                </div>
+                
+                <div class="explanation">
+                    <h3>نصائح للتحسين:</h3>
+                    <ul>
+                        <li>راجع قواعد مصادر الأفعال الرباعية مرة أخرى</li>
+                        <li>تدرب على المزيد من الأمثلة</li>
+                        <li>استخدم المعجم اللغوي للتحقق من المصادر غير المألوفة</li>
+                        <li>اطلب المساعدة من معلمك إذا واجهت صعوبة</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="teacher-tab">
+                <h2>لوحة تحكم المعلم</h2>
+                
+                <div class="explanation">
+                    <h3>نتائج الطلاب</h3>
+                    <p>هنا يمكنك عرض نتائج جميع الطلاب الذين أكملوا الاختبار.</p>
+                    <button class="btn btn-teacher" onclick="loadStudentResults()">تحديث النتائج</button>
+                    <button class="btn btn-teacher" onclick="exportToExcel()">تصدير إلى Excel</button>
+                    <button class="btn btn-teacher" onclick="clearAllResults()">مسح جميع النتائج</button>
+                </div>
+                
+                <div id="teacherResults">
+                    <table class="results-table">
+                        <thead>
+                            <tr>
+                                <th>اسم الطالب</th>
+                                <th>الصف</th>
+                                <th>رقم الطالب</th>
+                                <th>النتيجة</th>
+                                <th>النسبة المئوية</th>
+                                <th>الوقت المستغرق</th>
+                                <th>تاريخ الاختبار</th>
+                            </tr>
+                        </thead>
+                        <tbody id="resultsTableBody">
+                            <!-- سيتم ملء هذا الجدول بالنتائج -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>🎯 حاول أن تستخدم المعجم اللغوي للتحقق من المصادر غير المألوفة</p>
+            <p class="teacher-signature">بالتوفيق يا أبطال المستقبل!<br>المعلم: إبراهيم متاش</p>
+        </footer>
+    </div>
+
+    <script>
+        // بيانات التطبيق
+        let progress = {
+            exercise1: false,
+            exercise2: false,
+            exercise3: false,
+            exercise4: false,
+            correctAnswers: 0,
+            totalQuestions: 14
+        };
+        
+        let currentStudent = null;
+        let startTime = null;
+        let timerInterval = null;
+        let elapsedTime = 0;
+        
+        // تهيئة التطبيق
+        function initApp() {
+            // تحميل بيانات الطالب إذا كان مسجلاً مسبقاً
+            const savedStudent = localStorage.getItem('currentStudent');
+            if (savedStudent) {
+                currentStudent = JSON.parse(savedStudent);
+                displayStudentInfo();
+                startTimer();
+            }
+            
+            // تحميل التقدم إذا كان موجوداً
+            const savedProgress = localStorage.getItem('studentProgress');
+            if (savedProgress) {
+                const parsedProgress = JSON.parse(savedProgress);
+                if (parsedProgress.studentId === currentStudent?.id) {
+                    progress = parsedProgress;
+                    updateProgress();
+                }
+            }
+            
+            updateProgress();
+        }
+        
+        // تسجيل الطالب
+        function registerStudent() {
+            const name = document.getElementById('studentName').value.trim();
+            const studentClass = document.getElementById('studentClass').value.trim();
+            const studentId = document.getElementById('studentId').value.trim();
+            
+            if (!name || !studentClass || !studentId) {
+                alert('يرجى ملء جميع الحقول');
+                return;
+            }
+            
+            currentStudent = {
+                id: studentId,
+                name: name,
+                class: studentClass,
+                startTime: new Date().toLocaleString('ar-SA')
+            };
+            
+            localStorage.setItem('currentStudent', JSON.stringify(currentStudent));
+            displayStudentInfo();
+            startTimer();
+            switchTab('explanation');
+        }
+        
+        // عرض معلومات الطالب
+        function displayStudentInfo() {
+            if (!currentStudent) return;
+            
+            document.getElementById('displayStudentName').textContent = currentStudent.name;
+            document.getElementById('displayStudentClass').textContent = currentStudent.class;
+            document.getElementById('displayStudentId').textContent = currentStudent.id;
+            document.getElementById('startTime').textContent = currentStudent.startTime;
+            document.getElementById('currentStudentInfo').style.display = 'flex';
+        }
+        
+        // بدء المؤقت
+        function startTimer() {
+            startTime = new Date();
+            timerInterval = setInterval(updateTimer, 1000);
+        }
+        
+        // تحديث المؤقت
+        function updateTimer() {
+            elapsedTime++;
+            const minutes = Math.floor(elapsedTime / 60);
+            const seconds = elapsedTime % 60;
+            document.getElementById('timer').textContent = `الوقت المستغرق: ${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+        
+        // التبديل بين الألسنة
+        function switchTab(tabName) {
+            // إخفاء جميع المحتويات
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // إلغاء تفعيل جميع الألسنة
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // تفعيل المحتوى واللسان المطلوب
+            document.getElementById(`${tabName}-tab`).classList.add('active');
+            event.target.classList.add('active');
+        }
+        
+        // تحديث التقدم
+        function updateProgress() {
+            let completed = 0;
+            if (progress.exercise1) completed++;
+            if (progress.exercise2) completed++;
+            if (progress.exercise3) completed++;
+            if (progress.exercise4) completed++;
+            
+            const progressPercentage = (completed / 4) * 100;
+            document.getElementById('progressBar').style.width = `${progressPercentage}%`;
+            document.getElementById('summaryProgressBar').style.width = `${progressPercentage}%`;
+            document.getElementById('completedExercises').textContent = completed;
+            document.getElementById('correctAnswers').textContent = progress.correctAnswers;
+            document.getElementById('totalScore').textContent = `${Math.round((progress.correctAnswers / progress.totalQuestions) * 100)}%`;
+        }
+        
+        // حفظ النتائج
+        function saveResults() {
+            if (!currentStudent) {
+                alert('يرجى تسجيل بيانات الطالب أولاً');
+                return;
+            }
+            
+            const endTime = new Date();
+            const timeSpent = `${Math.floor(elapsedTime / 60)}:${(elapsedTime % 60).toString().padStart(2, '0')}`;
+            const percentage = Math.round((progress.correctAnswers / progress.totalQuestions) * 100);
+            
+            const result = {
+                studentId: currentStudent.id,
+                studentName: currentStudent.name,
+                studentClass: currentStudent.class,
+                score: progress.correctAnswers,
+                totalQuestions: progress.totalQuestions,
+                percentage: percentage,
+                timeSpent: timeSpent,
+                date: endTime.toLocaleString('ar-SA')
+            };
+            
+            // حفظ النتائج في localStorage
+            let allResults = JSON.parse(localStorage.getItem('studentResults')) || [];
+            // التحقق من عدم وجود نتيجة مكررة لنفس الطالب
+            const existingIndex = allResults.findIndex(r => r.studentId === currentStudent.id);
+            if (existingIndex !== -1) {
+                allResults[existingIndex] = result;
+            } else {
+                allResults.push(result);
+            }
+            
+            localStorage.setItem('studentResults', JSON.stringify(allResults));
+            
+            // حفظ التقدم
+            progress.studentId = currentStudent.id;
+            localStorage.setItem('studentProgress', JSON.stringify(progress));
+            
+            alert('تم حفظ النتائج بنجاح!');
+        }
+        
+        // تحميل نتائج الطلاب للمعلم
+        function loadStudentResults() {
+            const allResults = JSON.parse(localStorage.getItem('studentResults')) || [];
+            const tableBody = document.getElementById('resultsTableBody');
+            tableBody.innerHTML = '';
+            
+            if (allResults.length === 0) {
+                tableBody.innerHTML = '<tr><td colspan="7" style="text-align: center;">لا توجد نتائج مسجلة بعد</td></tr>';
+                return;
+            }
+            
+            allResults.forEach(result => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${result.studentName}</td>
+                    <td>${result.studentClass}</td>
+                    <td>${result.studentId}</td>
+                    <td>${result.score}/${result.totalQuestions}</td>
+                    <td>${result.percentage}%</td>
+                    <td>${result.timeSpent}</td>
+                    <td>${result.date}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+        
+        // تصدير النتائج إلى Excel
+        function exportToExcel() {
+            const allResults = JSON.parse(localStorage.getItem('studentResults')) || [];
+            
+            if (allResults.length === 0) {
+                alert('لا توجد نتائج لتصديرها');
+                return;
+            }
+            
+            let csvContent = "data:text/csv;charset=utf-8,\uFEFF";
+            csvContent += "اسم الطالب,الصف,رقم الطالب,النتيجة,النسبة المئوية,الوقت المستغرق,تاريخ الاختبار\n";
+            
+            allResults.forEach(result => {
+                const row = [
+                    result.studentName,
+                    result.studentClass,
+                    result.studentId,
+                    `${result.score}/${result.totalQuestions}`,
+                    `${result.percentage}%`,
+                    result.timeSpent,
+                    result.date
+                ];
+                csvContent += row.join(",") + "\n";
+            });
+            
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "نتائج_طلاب_مصادر_الأفعال_الرباعية.csv");
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+        
+        // مسح جميع النتائج
+        function clearAllResults() {
+            if (confirm('هل أنت متأكد من رغبتك في مسح جميع النتائج؟ لا يمكن التراجع عن هذا الإجراء.')) {
+                localStorage.removeItem('studentResults');
+                loadStudentResults();
+                alert('تم مسح جميع النتائج');
+            }
+        }
+        
+        // إعادة تعيين التقدم
+        function resetProgress() {
+            if (!confirm('هل تريد إعادة بدء الاختبار؟ سيتم مسح إجاباتك الحالية.')) {
+                return;
+            }
+            
+            progress = {
+                exercise1: false,
+                exercise2: false,
+                exercise3: false,
+                exercise4: false,
+                correctAnswers: 0,
+                totalQuestions: 14
+            };
+            
+            // إعادة تعيين جميع الحقول
+            document.querySelectorAll('input').forEach(input => {
+                input.value = '';
+            });
+            
+            // إعادة تعيين جميع النتائج
+            document.querySelectorAll('.result').forEach(result => {
+                result.style.display = 'none';
+            });
+            
+            // إعادة تعيين جميع الخيارات المحددة
+            document.querySelectorAll('.choice').forEach(choice => {
+                choice.classList.remove('selected', 'correct-answer', 'incorrect-answer');
+            });
+            
+            // إعادة تعيين المؤقت
+            elapsedTime = 0;
+            updateTimer();
+            
+            // حفظ التقدم المحدث
+            if (currentStudent) {
+                progress.studentId = currentStudent.id;
+                localStorage.setItem('studentProgress', JSON.stringify(progress));
+            }
+            
+            updateProgress();
+            alert('تم إعادة تعيين الاختبار بنجاح! يمكنك البدء من جديد.');
+        }
+        
+        // بقية الدوال الخاصة بالتمارين (لم تتغير)
+        function selectChoice(element, correctAnswer) {
+            element.parentElement.querySelectorAll('.choice').forEach(choice => {
+                choice.classList.remove('selected');
+            });
+            element.classList.add('selected');
+            element.dataset.correctAnswer = correctAnswer;
+        }
+        
+        function selectMCChoice(element, questionId) {
+            const questionElement = element.parentElement;
+            questionElement.querySelectorAll('.choice').forEach(choice => {
+                if (choice.dataset.question === questionId) {
+                    choice.classList.remove('selected');
+                }
+            });
+            element.classList.add('selected');
+            element.dataset.question = questionId;
+        }
+        
+        function checkQuickExercise() {
+            const selectedChoice = document.querySelector('.choice.selected');
+            if (!selectedChoice) {
+                alert('يرجى اختيار إجابة أولاً');
+                return;
+            }
+            
+            const resultElement = document.getElementById('quickResult');
+            const correctAnswer = selectedChoice.dataset.correctAnswer;
+            const userAnswer = selectedChoice.textContent.trim();
+            
+            if (userAnswer === correctAnswer) {
+                resultElement.innerHTML = '<p>✓ إجابة صحيحة! أحسنت.</p>';
+                resultElement.className = 'result correct';
+            } else {
+                resultElement.innerHTML = `<p>✗ إجابة خاطئة. الإجابة الصحيحة هي: ${correctAnswer}</p>`;
+                resultElement.className = 'result incorrect';
+            }
+            
+            resultElement.style.display = 'block';
+        }
+        
+        function checkExercise1() {
+            const answers = [
+                { source: 'إطعاماً', type: 'رباعي', weight: 'إفعال' },
+                { source: 'سفراً', type: 'ثلاثي', weight: 'غير قياسي' },
+                { source: 'توحيداً', type: 'رباعي', weight: 'تفعيل' },
+                { source: 'مقابلة', type: 'رباعي', weight: 'مفاعلة' },
+                { source: 'دحرجة', type: 'رباعي', weight: 'فعللة' }
+            ];
+            
+            let correctCount = 0;
+            let resultHTML = "";
+            
+            for (let i = 0; i < 5; i++) {
+                const userSource = document.getElementById(`q1a${i+1}`).value.trim();
+                const userType = document.getElementById(`q1t${i+1}`).value.trim();
+                const userWeight = document.getElementById(`q1w${i+1}`).value.trim();
+                
+                const isCorrect = userSource === answers[i].source && 
+                                 userType === answers[i].type && 
+                                 userWeight === answers[i].weight;
+                
+                if (isCorrect) {
+                    correctCount++;
+                }
+                
+                resultHTML += `<p>${i+1}- ${isCorrect ? '✓ إجابة صحيحة' : '✗ إجابة خاطئة'}. الإجابة الصحيحة: ${answers[i].source} (${answers[i].type} - ${answers[i].weight})</p>`;
+            }
+            
+            const resultElement = document.getElementById('result1');
+            resultElement.innerHTML = `<h3>النتيجة: ${correctCount}/5</h3>` + resultHTML;
+            resultElement.className = `result ${correctCount === 5 ? 'correct' : 'incorrect'}`;
+            resultElement.style.display = 'block';
+            
+            // تحديث التقدم
+            progress.exercise1 = true;
+            progress.correctAnswers += correctCount;
+            updateProgress();
+        }
+        
+        function checkExercise2() {
+            const answers = ['حِفْظ', 'إِنْجَاح', 'تَوْحِيد'];
+            
+            let correctCount = 0;
+            let resultHTML = "";
+            
+            for (let i = 0; i < 3; i++) {
+                const userAnswer = document.getElementById(`q2a${i+1}`).value.trim();
+                const isCorrect = userAnswer === answers[i];
+                
+                if (isCorrect) {
+                    correctCount++;
+                }
+                
+                resultHTML += `<p>${i+1}- ${isCorrect ? '✓ إجابة صحيحة' : '✗ إجابة خاطئة'}. الإجابة الصحيحة: ${answers[i]}</p>`;
+            }
+            
+            const resultElement = document.getElementById('result2');
+            resultElement.innerHTML = `<h3>النتيجة: ${correctCount}/3</h3>` + resultHTML;
+            resultElement.className = `result ${correctCount === 3 ? 'correct' : 'incorrect'}`;
+            resultElement.style.display = 'block';
+            
+            // تحديث التقدم
+            progress.exercise2 = true;
+            progress.correctAnswers += correctCount;
+            updateProgress();
+        }
+        
+        function checkExercise3() {
+            const answers = ['إحسان', 'تسويد', 'مقاومة أو مقاومة'];
+            
+            let correctCount = 0;
+            let resultHTML = "";
+            
+            for (let i = 0; i < 3; i++) {
+                const userAnswer = document.getElementById(`q3a${i+1}`).value.trim();
+                const isCorrect = (i < 2 && userAnswer === answers[i]) || 
+                                 (i === 2 && (userAnswer === 'مقاومة' || userAnswer === 'مقاومة'));
+                
+                if (isCorrect) {
+                    correctCount++;
+                }
+                
+                resultHTML += `<p>${i+1}- ${isCorrect ? '✓ إجابة صحيحة' : '✗ إجابة خاطئة'}. الإجابة الصحيحة: ${answers[i]}</p>`;
+            }
+            
+            const resultElement = document.getElementById('result3');
+            resultElement.innerHTML = `<h3>النتيجة: ${correctCount}/3</h3>` + resultHTML;
+            resultElement.className = `result ${correctCount === 3 ? 'correct' : 'incorrect'}`;
+            resultElement.style.display = 'block';
+            
+            // تحديث التقدم
+            progress.exercise3 = true;
+            progress.correctAnswers += correctCount;
+            updateProgress();
+        }
+        
+        function checkExercise4() {
+            const answers = {
+                'q4a1': 'إِعْطَاءٌ',
+                'q4a2': 'سَفْرٌ',
+                'q4a3': 'هَزَّازَةٌ'
+            };
+            
+            let correctCount = 0;
+            let resultHTML = "";
+            
+            for (const questionId in answers) {
+                const selectedChoice = document.querySelector(`.choice.selected[data-question="${questionId}"]`);
+                if (selectedChoice && selectedChoice.textContent.trim() === answers[questionId]) {
+                    correctCount++;
+                    resultHTML += `<p>${questionId.replace('q4a', '')}- ✓ إجابة صحيحة</p>`;
+                } else {
+                    resultHTML += `<p>${questionId.replace('q4a', '')}- ✗ إجابة خاطئة. الإجابة الصحيحة: ${answers[questionId]}</p>`;
+                }
+            }
+            
+            const resultElement = document.getElementById('result4');
+            resultElement.innerHTML = `<h3>النتيجة: ${correctCount}/3</h3>` + resultHTML;
+            resultElement.className = `result ${correctCount === 3 ? 'correct' : 'incorrect'}`;
+            resultElement.style.display = 'block';
+            
+            // تحديث التقدم
+            progress.exercise4 = true;
+            progress.correctAnswers += correctCount;
+            updateProgress();
+        }
+        
+        function showAnswers(exerciseNumber) {
+            let answers = [];
+            let message = "";
+            
+            switch(exerciseNumber) {
+                case 1:
+                    answers = [
+                        "١- أَطْعَمَ → إطعاماً (رباعي - إفعال)",
+                        "٢- سَافَرَ → سفراً (ثلاثي - غير قياسي)",
+                        "٣- وَحَّدَ → توحيداً (رباعي - تفعيل)",
+                        "٤- قَابَلَ → مقابلة (رباعي - مفاعلة)",
+                        "٥- دَحْرَجَ → دحرجة (رباعي - فعللة)"
+                    ];
+                    message = "الإجابات النموذجية للسؤال الأول:";
+                    break;
+                case 2:
+                    answers = [
+                        "١- يهدف المشروع إلى (حِفْظ) البيئة.",
+                        "٢- يسعى المعلم إلى (إِنْجَاح) طلابه.",
+                        "٣- نتمنى (تَوْحِيد) الأمة الإسلامية."
+                    ];
+                    message = "الإجابات النموذجية للسؤال الثاني:";
+                    break;
+                case 3:
+                    answers = [
+                        "١- إِحْسَانَةٌ ← إحسان",
+                        "٢- تَسْوِيدٌ ← تسويد",
+                        "٣- مُقَاوَمَةٌ (لِقَاوَمَ) ← مقاومة أو مقاومة"
+                    ];
+                    message = "الإجابات النموذجية للسؤال الثالث:";
+                    break;
+            }
+            
+            const resultId = `result${exerciseNumber}`;
+            const resultElement = document.getElementById(resultId);
+            let answersHTML = `<h3>${message}</h3>`;
+            answers.forEach(answer => {
+                answersHTML += `<p>${answer}</p>`;
+            });
+            
+            resultElement.innerHTML = answersHTML;
+            resultElement.className = 'result correct';
+            resultElement.style.display = 'block';
+        }
+        
+        // تهيئة التطبيق عند تحميل الصفحة
+        window.onload = initApp;
+    </script>
+</body>
+</html>
